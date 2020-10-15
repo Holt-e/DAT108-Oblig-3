@@ -4,6 +4,7 @@
 public abstract class WebPatterns {
 
     public static final String HANDLELISTE = "/handleliste";
+    public static final String INDEX = "/index";
     public static final String LOGGINN = "/logginn";
 
 
