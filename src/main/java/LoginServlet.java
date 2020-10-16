@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "LogginnServlet", urlPatterns = WebPatterns.LOGGINN)
-public class LogginnServlet extends HttpServlet {
+@WebServlet(name = "LogginnServlet", urlPatterns = WebPatterns.LOGIN)
+public class LoginServlet extends HttpServlet {
 
 
     @Override
@@ -14,14 +14,14 @@ public class LogginnServlet extends HttpServlet {
 
         String passord = request.getParameter("passord");
 
-        response.sendRedirect(String.format(".%s", WebPatterns.LOGGINN));
+        response.sendRedirect(String.format(".%s", WebPatterns.LOGIN));
     }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("WEB-INF/logginn.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
     }
 
 }

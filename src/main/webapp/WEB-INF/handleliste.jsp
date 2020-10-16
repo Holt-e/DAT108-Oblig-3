@@ -17,7 +17,7 @@
 <form method="post" class="pure-form pure-form-aligned">
     <fieldset>
         <div class="pure-control-group">
-            <label for="passord">Passord:</label> <input type="password" name="passord" />
+            <label for="passord">Vare:</label> <input type="password" name="passord" />
         </div>
         <div class="pure-controls">
             <div class="whiteBox">
