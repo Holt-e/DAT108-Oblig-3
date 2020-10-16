@@ -5,28 +5,28 @@
   Time: 00:48
   To change this template use File | Settings | File Templates.
 --%>
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" href="style.css">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Logginn</title>
 </head>
 <body>
-<form action="login" method="post">
+<form action="handleliste" method="post">
     <h2>Skriv inn passord:</h2>
+    <span class="errorText">${feilmelding}</span>
     <div class="input-field">
-        <label for="password">Passord</label>
-        <input id="password" type="password" name="password"/>
+        <label for="passord">Passord:</label>
+        <input id="passord" type="password" name="passord"/>
 
     </div>
     <br>
     <br>
-    <span class="red-text">${loginMessage}</span>
 
-    <div class="card-action">
-        <button class="waves-effect waves-light btn" type="button"
-                onclick="window.location.href = 'handleliste';">Login
-        </button>
+
+    <div >
+        <input type="submit" value="Submit">
+    </div>
 </form>
 </body>
 </html>

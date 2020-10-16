@@ -15,5 +15,6 @@ Welcome to Index File
 <button class="waves-effect waves-light btn" type="button"
         onclick="window.location.href = 'login';">redirect to Login
 </button>
+<script src=WEB-INF/style.css ></script>
 </body>
 </html>
