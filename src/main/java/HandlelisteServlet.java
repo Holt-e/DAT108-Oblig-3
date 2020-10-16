@@ -21,9 +21,6 @@ public class HandlelisteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //    response.getWriter()
-         //       .append("Hallo DAT108!\n")
-         //       .append("Vi kjører på en " + getServletContext().getServerInfo());
 
         request.getRequestDispatcher("WEB-INF/handleliste.jsp").forward(request, response);
     }
