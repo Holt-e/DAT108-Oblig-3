@@ -17,4 +17,12 @@ public class Handleliste {
     public ArrayList<String> getHandleliste(){
         return liste;
     }
+
+    @Override
+    public String toString() {
+        return "Handleliste{" +
+                "item='" + item + '\'' +
+                ", liste=" + liste +
+                '}';
+    }
 }

@@ -31,18 +31,15 @@ public class LoginServlet extends HttpServlet {
             sekTid = Integer.parseInt(this.getInitParameter("Tid"));
             sesjon.setMaxInactiveInterval(sekTid);
 
-//			sesjon.setAttribute("loggedIn", "yes");
-
 
             // Sjekker om det finnes en handlevogn, eller oppretter
 
             ServletContext servletContext = request.getServletContext();
             if (servletContext.getAttribute("handleliste") == null) {
-                //  servletContext.setAttribute("handleliste", new HandlelisteDOA());
             }
 
             response.sendRedirect("handleliste");
-        } else {
+        }else {
             response.sendRedirect("login" + "?feilmelding");
         }
     }

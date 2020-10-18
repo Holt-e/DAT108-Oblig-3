@@ -13,7 +13,6 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.sendRedirect(String.format(".%s", WebPatterns.LOGIN));
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

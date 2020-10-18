@@ -1,4 +1,6 @@
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +64,7 @@ public class HandlelisteServlet extends HttpServlet {
             out.println("<input type=\"hidden\" name=\"deleteItem\" value=\"" + item + "\" />");
             out.println("<input type=\"submit\" value=\"Slett\" />");
             out.println("</form>");
-
+            out.println(StringEscapeUtils.escapeHtml4(item));
             out.println("</body>");
             out.println("</html>");
         }
