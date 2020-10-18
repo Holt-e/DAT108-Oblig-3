@@ -1,28 +1,19 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Handleliste {
-    public String item;
-    private ArrayList<String> liste;
+    public List<HandlelisteItem> items = Collections.synchronizedList(new ArrayList<>());
 
-    public Handleliste(){
-        liste= new ArrayList<>();
-    }
-    public void add(String add){
-        liste.add(item);
-    }
-    public void delete(String delete){
-        liste.remove(item);
-    }
-    public ArrayList<String> getHandleliste(){
-        return liste;
+    public void addItem(HandlelisteItem item) {
+        items.add(item);
     }
 
-    @Override
-    public String toString() {
-        return "Handleliste{" +
-                "item='" + item + '\'' +
-                ", liste=" + liste +
-                '}';
+    public void removeItem(HandlelisteItem item) {
+        items.remove(item);
+    }
+
+    public List<HandlelisteItem> getItems() {
+        return items;
     }
 }

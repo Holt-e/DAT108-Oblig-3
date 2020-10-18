@@ -12,65 +12,86 @@ import java.io.PrintWriter;
 @WebServlet(name = "LoginServlet", urlPatterns = WebPatterns.LOGIN)
 public class LoginServlet extends HttpServlet {
 
-    String korrektpass;
-    int sekTid;
+    String initpassord;
+    int LoggInnTime;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        // Sjekker om passordet er riktig
-        korrektpass = this.getInitParameter("Passord");
-        if (korrektpass.equals(request.getParameter("passord"))) {
-            HttpSession sesjon = request.getSession(false);
-            if (sesjon != null) {
-                sesjon.invalidate();
-            }
-
-            sesjon = request.getSession(true);
-            // Henter tid til inactive fra init paramter i xml-fil
-            sekTid = Integer.parseInt(this.getInitParameter("Tid"));
-            sesjon.setMaxInactiveInterval(sekTid);
-
-
-            // Sjekker om det finnes en handlevogn, eller oppretter
-
-            ServletContext servletContext = request.getServletContext();
-            if (servletContext.getAttribute("handleliste") == null) {
-            }
-
-            response.sendRedirect("handleliste");
-        }else {
-            response.sendRedirect("login" + "?feilmelding");
-        }
+    public void init() throws ServletException {
+        String initpassord = getServletConfig().getInitParameter("initpassord");
+        int LoginTime = Integer.parseInt(getServletConfig().getInitParameter("LoginTime"));
     }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html; charset=UTF-8");
+        //Har brukt en request-parameter for aa angi feilmelding
+
+        String feilpassord = request.getParameter("feilpassord");
+        String feilmelding = "";
+        if(feilpassord != null)
+            feilmelding = "<p><font color=\"red\">" + "Passordet du ga inn var feil. Prøv igjen: " + "</font></p> ";
+
+        response.setContentType("text/html; charset=ISO-8859-1");
+
         PrintWriter out = response.getWriter();
+
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
-        out.println("<meta charset=\"UTF-8\">");
-        out.println("<title>Login </title>");
+        out.println("<meta charset=\"ISO-8859-1\">");
+        out.println("<title>Login</title>");
         out.println("</head>");
         out.println("<body>");
-        if (request.getParameter("feilmelding") != null) {
-            out.println("<p style=\"color:red\">Feil passord. Prøv igjen!</p>");
-        }
-        out.println("<h3>Skriv inn passord: </h3>");
-        out.println("<form name=\"loginForm\" action=\"login\" method=\"post\">");
-        out.println("<p><input type=\"password\" name=\"passord\" /></p>");
-        out.println("<p><input type=\"submit\" value=\"Logg in\" /></p>");
-        out.println("</div>");
+
+        //Feilmelding her i forbindelse med feil passord.
+        out.println("<p>" + feilmelding + "</p>");
+
+        //vanlig html oppsett med en textbox og en logg inn knapp.
+        out.println("<form action=\"" + "login"
+                + "\" method=\"post\">");
+        out.println("<fieldset>");
+        out.println("<legend>Skriv inn passord: </legend>");
+        out.println("<input type=\"password\" name=\"password\" />");
+        out.println("<p><input type=\"submit\" value=\"Logg inn\" /></p>");
+        out.println("<button type=\"button\" onclick= \"window.location.href = 'index.jsp'\";>redirect to Index</button>");
+        out.println("</fieldset>");
         out.println("</form>");
-        out.println("</div>");
         out.println("</body>");
         out.println("</html>");
 
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String passord = request.getParameter("password");
+        String initpassord = getServletConfig().getInitParameter("initpassord");
+        int LoginTime = Integer.parseInt(getServletConfig().getInitParameter("LoginTime"));
+
+        if(passord == null || !passord.equals(initpassord)) {
+            response.sendRedirect("login" + "?feilpassord");
+        }else{
+
+            HttpSession sesjon = request.getSession(false);
+            if (sesjon != null) {
+              //  sesjon.invalidate();
+            }else
+                sesjon = request.getSession(true);
+            sesjon.setMaxInactiveInterval(LoginTime);
+
+            sesjon.setAttribute("bruker", passord);
+
+
+            // Inn noe kode her i forbindelse med oppretting av sesjonsdata?
+            sesjon.setAttribute("bruker", request.getParameter(passord));
+            sesjon.setAttribute("cart" , new Handleliste());
+            response.sendRedirect("handleliste");
+        }
+    }
+
+
+
     }
 
 
